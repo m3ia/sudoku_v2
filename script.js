@@ -1,7 +1,6 @@
 // Make an array of arrays for rows and columns
 // Google Matrix implementation JS
 
-let userInput = '000000000973080060000109823400090602060030019010000008600908031000510786000000504';
 let userInput2 = '128653947973284165546179823435891672862735419719426358657948231394512786281367594';
 
 // This would allow us to have a 1:1 representation of the table in HTML
@@ -113,8 +112,8 @@ indexMatrix.forEach((elem, i, arr) => {
     })
 })
 
-let tr2 = doc.createElement('tr');
-let td2 = doc.createElement('td');
+// let tr2 = doc.createElement('tr');
+// let td2 = doc.createElement('td');
 
 //  create an object for each item? as we loop through the string, we'll push the number to its "parent" array.
 // every 3 iterations, parent goes up by 1 until it hits 9
@@ -149,3 +148,78 @@ console.log(parentGrid[0]); //  we want: parentGrid[0] = [0, 1, 2, 0, 1, 2, 0, 1
 // the next problem was figuring out how to map these exact coordinates to the larger parent grid where the min is 0 and the max is 2 on both the y and x axes. all i wanted was to push the respective item to a parentGrid array where the index matches up with the parent. Then I asked for help lol: let parentArr = (parentGridRow * 3) + (parentGridCol)./
 // Apparently this line allows us to flatten the parent grid out, and tells us which parent box the item lives in.
 // parentGridRow - mult by 3 bc if we flatten the grid, it'd be in box index 3. 
+// if you flatten the grid, and see the column numbers as a "divisor" and the row as the "remainder" 
+
+
+// Create and append the table:
+let exampleGrid = doc.getElementsByClassName('exampleGrid')[0];
+
+let exampleMatrix = [
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+];
+
+let userInput = '000000000973080060000109823400090602060030019010000008600908031000510786000000504';
+
+for (let i = 0; i < 81; i++) {
+    userInput+=(i % 9);
+}
+rowNum = 0; colNum = 0;
+for (let i = 0; i < userInput.length; i++) {
+    exampleMatrix[rowNum][colNum] = userInput[i];
+    if (rowNum === 8 && colNum === 8) {
+        break;
+    } 
+    // Create index for next loop
+    colNum++;
+    if (colNum > 8) {
+        colNum = 0;
+        rowNum++;
+    }
+    if (rowNum > 8) {
+    }
+}
+console.log(exampleMatrix);
+
+exampleMatrix.forEach((elem) => {
+    let tr = doc.createElement('tr');
+    exampleGrid.appendChild(tr);
+    elem.forEach((elem, i) => {
+        let td = doc.createElement('td');
+        tr.appendChild(td);
+        if (elem == 0) {
+            td.innerHTML =
+                `<input 
+                type="number" 
+                max="9" 
+                min="1"
+                onchange="printMe()"
+            >
+            </input>`;
+            exampleGrid = doc.getElementsByClassName('exampleGrid')[0];
+
+        } else {
+            td.innerHTML = elem;
+        }
+        
+    });
+});
+
+console.log('should be 9', exampleMatrix[1][0]);
+
+// TODO: 
+// Create a button that submits the form.
+    // on submit, take all the values and update the user input string
+    // if the string matches say "you win!"
+    // if any item in the string doesn't match, return "not quite..."
+// Then set up validation as the user enters info--if there's a duplicate in the row, column, or parent, highlight both of the duplicates
+// let tr3 = doc.createElement('tr');
+// let td3 = doc.createElement('td');
+
