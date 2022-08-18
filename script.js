@@ -245,21 +245,36 @@ starterGrid.split('').forEach((elem, i, arr) => {
 // });
 
 // Creates a shallow copy of grid and converts it to an array 
-let currentInput = starterGrid.slice().split('');
+let currentInput = starterGrid.slice();
 // Event handler for input field
 function updateUserInput(index) {
+    currentInput = currentInput.split('')
     let updatedCellVal = doc.getElementById(`cell${index}`).value;
     currentInput[index] = String(updatedCellVal);
-    console.log(currentInput.join(''));
+    currentInput = currentInput.join('');
+    console.log(currentInput);
+    return currentInput;
 }
 
-// Create index-to-coord function
-// Create coord-to-index function
-// TODO: 
 // Create a button that submits the form.
     // on submit, take all the values and update the user input string
     // if the string matches say "you win!"
     // if any item in the string doesn't match, return "not quite..."
+
+const solution = '128653947973284165546179823435891672862735419719426358657948231394512786281367594';
+
+let submitBtn = doc.getElementsByClassName('submitBtn')[0];
+submitBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    console.log(currentInput);
+    console.log(solution);
+    console.log(currentInput === solution);
+
+})
+// Create index-to-coord function
+// Create coord-to-index function
+// TODO: 
+
 // Then set up validation as the user enters info--if there's a duplicate in the row, column, or parent, highlight both of the duplicates
 // let tr3 = doc.createElement('tr');
 // let td3 = doc.createElement('td');
