@@ -253,6 +253,7 @@ function updateUserInput(index) {
     currentInput[index] = String(updatedCellVal);
     currentInput = currentInput.join('');
     console.log(currentInput);
+    console.log(solution);
     return currentInput;
 }
 
@@ -269,7 +270,15 @@ submitBtn.addEventListener('click', (e) => {
     console.log(currentInput);
     console.log(solution);
     console.log(currentInput === solution);
-
+    
+    // Update "result" element on page:
+    let result = doc.getElementsByClassName('result')[0];
+    if (currentInput === solution) {
+        result.innerHTML = "YAY! You got it!"
+    } else {
+        e.preventDefault();
+        result.innerHTML = "mmm not quite"
+    }
 })
 // Create index-to-coord function
 // Create coord-to-index function
