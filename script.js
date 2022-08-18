@@ -173,7 +173,8 @@ starterGrid.split('').forEach((elem, i, arr) => {
             max="9" 
             min="1"
             id="cell${i}"
-            onchange="printMe(${i})"
+            onchange="updateUserInput(${i})"
+            required
         >
         </input>`;
         exampleGrid = doc.getElementsByClassName('exampleGrid')[0];
@@ -243,12 +244,17 @@ starterGrid.split('').forEach((elem, i, arr) => {
 //     });
 // });
 
-
-// Event handler for submit button
-function printMe(index) {
-    let updatedCell = doc.getElementById(`cell${index}`);
-    console.log(updatedCell.value);
+// Creates a shallow copy of grid and converts it to an array 
+let currentInput = starterGrid.slice().split('');
+// Event handler for input field
+function updateUserInput(index) {
+    let updatedCellVal = doc.getElementById(`cell${index}`).value;
+    currentInput[index] = String(updatedCellVal);
+    console.log(currentInput.join(''));
 }
+
+// Create index-to-coord function
+// Create coord-to-index function
 // TODO: 
 // Create a button that submits the form.
     // on submit, take all the values and update the user input string
