@@ -172,6 +172,7 @@ starterGrid.split('').forEach((elem, i, arr) => {
             type="number" 
             max="9" 
             min="1"
+            id="cell${i}"
             onchange="printMe(${i})"
         >
         </input>`;
@@ -244,8 +245,9 @@ starterGrid.split('').forEach((elem, i, arr) => {
 
 
 // Event handler for submit button
-function printMe(col, row) {
-    console.log(`(${col}, ${row})`);
+function printMe(index) {
+    let updatedCell = doc.getElementById(`cell${index}`);
+    console.log(updatedCell.value);
 }
 // TODO: 
 // Create a button that submits the form.
