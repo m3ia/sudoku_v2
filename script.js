@@ -246,10 +246,10 @@ starterGrid.split('').forEach((elem, i, arr) => {
 let currentInput = starterGrid.slice();
 // Event handler for input field
 function updateUserInput(index) {
-    currentInput = currentInput.split('')
-    let updatedCellVal = doc.getElementById(`cell${index}`).value;
-    currentInput[index] = String(updatedCellVal);
-    currentInput = currentInput.join('');
+    const inputArr = currentInput.split('')
+    let updatedCellVal = doc.getElementById(`cell${index}`).value || 0;
+    inputArr[index] = String(updatedCellVal);
+    currentInput = inputArr.join('');
     console.log(currentInput);
     console.log(solution);
     return currentInput;
@@ -288,7 +288,9 @@ submitBtn.addEventListener('click', (e) => {
                 }
             } else if (currentInput[i] == 0 || currentInput[i] != solution[i]) {
                 let cell = doc.getElementById(`cell${i}`);
-                cell.style.backgroundColor = 'yellow';
+                if (cell) {
+                    cell.style.backgroundColor = 'yellow';
+                }
                 result.innerHTML = "mmm not quite";
             }
         }
