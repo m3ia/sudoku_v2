@@ -169,13 +169,11 @@ starterGrid.split('').forEach((elem, i, arr) => {
     if (elem == 0) {
         td.innerHTML =
             `<input 
-            type="number" 
-            max="9" 
-            min="1"
+            type="text" 
             class="cells"
             id="cell${i}"
             onchange="updateUserInput(${i})"
-            required
+            maxLength="1"
         >
         </input>`;
         exampleGrid = doc.getElementsByClassName('exampleGrid')[0];
