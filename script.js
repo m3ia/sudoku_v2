@@ -172,6 +172,7 @@ starterGrid.split('').forEach((elem, i, arr) => {
             type="number" 
             max="9" 
             min="1"
+            class="cells"
             id="cell${i}"
             onchange="updateUserInput(${i})"
             required
@@ -184,7 +185,6 @@ starterGrid.split('').forEach((elem, i, arr) => {
     } else {
         td.innerHTML = Number(elem);
     }
-    console.log('i: ', i);
 });
 
 // let exampleMatrix = [
@@ -274,10 +274,27 @@ submitBtn.addEventListener('click', (e) => {
     // Update "result" element on page:
     let result = doc.getElementsByClassName('result')[0];
     if (currentInput === solution) {
-        result.innerHTML = "YAY! You got it!"
+        for (let i = 0; i < currentInput.length; i++) {
+            let cell = doc.getElementById(`cell${i}`);
+            if (cell) {
+                cell.style.backgroundColor = 'white';
+            }
+        }
+        result.innerHTML = "YAY! You got it!";
     } else {
-        e.preventDefault();
-        result.innerHTML = "mmm not quite"
+        for (let i = 0; i < currentInput.length; i++) {
+            if (currentInput[i] === solution[i]) {
+                let cell = doc.getElementById(`cell${i}`);
+                if (cell) {
+                    cell.style.backgroundColor = 'white';
+                }
+            } else if (currentInput[i] == 0 || currentInput[i] != solution[i]) {
+                let cell = doc.getElementById(`cell${i}`);
+                cell.style.backgroundColor = 'yellow';
+                result.innerHTML = "mmm not quite";
+            }
+        }
+        result.innerHTML = "mmm not quite";
     }
 })
 // Create index-to-coord function
@@ -285,6 +302,4 @@ submitBtn.addEventListener('click', (e) => {
 // TODO: 
 
 // Then set up validation as the user enters info--if there's a duplicate in the row, column, or parent, highlight both of the duplicates
-// let tr3 = doc.createElement('tr');
-// let td3 = doc.createElement('td');
 
