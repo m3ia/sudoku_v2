@@ -36,7 +36,7 @@ let grid = doc.getElementsByClassName('grid')[0];
 // Initialize tr in the outermost scope
 let tr = null;
 // Creates the grid
-starterGrid.split('').forEach((elem, i) => {
+newProblem.split('').forEach((elem, i) => {
     // Adds a new table row every 9 items 
     if (i % 9 === 0) {
         tr = doc.createElement('tr');
@@ -127,7 +127,7 @@ function checkDupes() {
 }
 
 // Creates a shallow copy of grid and converts it to an array 
-let currentInput = starterGrid.slice();
+let currentInput = newProblem.slice();
 // Event handler for input field
 function updateUserInput(index) {
     const inputArr = currentInput.split('')
@@ -137,7 +137,7 @@ function updateUserInput(index) {
     inputArr[index] = String(updatedCellVal);
     currentInput = inputArr.join('');
     console.log(currentInput);
-    console.log(solution);
+    console.log(newSolution);
     checkDupes();
     return currentInput;
 }
@@ -149,7 +149,7 @@ submitBtn.addEventListener('click', (e) => {
     
     // Update "result" element on page:
     let result = doc.getElementsByClassName('result')[0];
-    if (currentInput === solution) {
+    if (currentInput === newSolution) {
         for (let i = 0; i < currentInput.length; i++) {
             let cell = doc.getElementById(`cell${i}`);
             if (cell) {
@@ -160,7 +160,7 @@ submitBtn.addEventListener('click', (e) => {
         result.innerHTML = "YAY! You got it!";
     } else {
         for (let i = 0; i < currentInput.length; i++) {
-            if (currentInput[i] === solution[i] || currentInput[i] == '0') {
+            if (currentInput[i] === newSolution[i] || currentInput[i] == '0') {
                 let cell = doc.getElementById(`cell${i}`);
                 if (cell) {
                     cell.style.backgroundColor = 'white';
@@ -168,7 +168,7 @@ submitBtn.addEventListener('click', (e) => {
                 result.innerHTML = "Please fill out all boxes.";
             // if any item in the string doesn't match, return "not quite..."
             } else
-                if (currentInput[i] != solution[i]) {
+                if (currentInput[i] != newSolution[i]) {
                     let cell = doc.getElementById(`cell${i}`);
                     if (cell) {
                         cell.style.backgroundColor = 'yellow';
