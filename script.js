@@ -160,20 +160,23 @@ submitBtn.addEventListener('click', (e) => {
         result.innerHTML = "YAY! You got it!";
     } else {
         for (let i = 0; i < currentInput.length; i++) {
-            if (currentInput[i] === newSolution[i] || currentInput[i] == '0') {
+            if (currentInput.includes('0')) {
                 let cell = doc.getElementById(`cell${i}`);
                 if (cell) {
                     cell.style.backgroundColor = 'white';
                 }
-                result.innerHTML = "Please fill out all boxes.";
+                result.innerHTML = "Please fill out all boxes."
+                result.style.display = "block"
+                setTimeout( () => result.style.display = "none", 5000)
             // if any item in the string doesn't match, return "not quite..."
-            } else
-                if (currentInput[i] != newSolution[i]) {
+            } else if (currentInput != newSolution) {
                     let cell = doc.getElementById(`cell${i}`);
                     if (cell) {
                         cell.style.backgroundColor = 'yellow';
                     }
-                result.innerHTML = "hmm not quite";
+                result.innerHTML = "Hm not quite."
+                result.style.display = "block";
+                setTimeout(() => result.style.display = "none", 5000);
             }
         }
     }
