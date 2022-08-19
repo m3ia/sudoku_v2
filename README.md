@@ -4,10 +4,11 @@
 For Techtonica, we had 1 week to build a game of our choice with just HTML, CSS, and JavaScript, so I chose a game I'm passionate about: a [Sudoku](https://en.wikipedia.org/wiki/Sudoku) puzzle.
 
 ## Lessons Learned:
-- Completing larger applications with just HTML, CSS, and JS can take hours--so you must anticipate problems you wouldn't anticipate would exist.
-- Modulo operators are very handy for converting grid indices to (x,y)/(column, row) coordinates, and back.
-- The way I approached finding the "parent" boxes for an item involved what's called "flattening" a grid
-- In converting coordinates to indices, rows can be thought of as quotients and columns as remainders
+- To convert coordinates to indices, rows can be thought of as quotients and columns as remainders
+- One great way to approach identifying "parent" boxes for an item is by flattening the grid
+- Modulo operators are very handy for converting grid indices to (x,y)/(column, row) coordinates, and back
+- Completing larger applications with just HTML, CSS, and JS can take hours--so you must anticipate maybe time x3 on problems don't yet know about
+
 
 ## Hardest Parts:
 - Figuring out how to search for duplicates

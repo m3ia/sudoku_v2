@@ -1,6 +1,34 @@
 let doc = document;
-// The starting Sudoku problem:
+
+const solution = '128653947973284165546179823435891672862735419719426358657948231394512786281367594';
+
 let starterGrid = '000000000973080060000109823400090602060030019010000008600908031000510786000000504';
+// Available Problems:
+let easyProblems = [
+    [
+        "000000000973080060000109823400090602060030019010000008600908031000510786000000504",
+        "128653947973284165546179823435891672862735419719426358657948231394512786281367594"    
+    ],
+    [
+        "000513096003000408060090030300600005104030907600005004090080070502000100730459000", "847513296913726458265894731379641825154238967628975314496182573582367149731459682"
+    ],
+    [
+        "007036402004809350080004000040005006058302190296400070000100030035607200879240600",
+        "917536482624819357583724961341975826758362194296481573462158739135697248879243615"
+    ], 
+    [
+        "097060210500020003003800700000000500780000046001000000002004900400010008068070150",
+        "897463215516927483243851769624738591785192346931546872152684937479315628368279154"
+    ],
+    [
+        "070680000500009200000004570400010832700208005082040009059400000007300001000056047",
+        "274685193516739284938124576465917832793268415182543769659471328847392651321856947"
+    ]
+]
+// The starting Sudoku problem:
+let randInd = Math.floor((Math.random() * 10) / 2);
+let newProblem = easyProblems[randInd][0];
+let newSolution = easyProblems[randInd][1];
 
 // Create and append the table:
 let grid = doc.getElementsByClassName('grid')[0];
@@ -8,7 +36,7 @@ let grid = doc.getElementsByClassName('grid')[0];
 // Initialize tr in the outermost scope
 let tr = null;
 // Creates the grid
-starterGrid.split('').forEach((elem, i) => {
+newProblem.split('').forEach((elem, i) => {
     // Adds a new table row every 9 items 
     if (i % 9 === 0) {
         tr = doc.createElement('tr');
@@ -99,7 +127,7 @@ function checkDupes() {
 }
 
 // Creates a shallow copy of grid and converts it to an array 
-let currentInput = starterGrid.slice();
+let currentInput = newProblem.slice();
 // Event handler for input field
 function updateUserInput(index) {
     const inputArr = currentInput.split('')
@@ -109,12 +137,10 @@ function updateUserInput(index) {
     inputArr[index] = String(updatedCellVal);
     currentInput = inputArr.join('');
     console.log(currentInput);
-    console.log(solution);
+    console.log(newSolution);
     checkDupes();
     return currentInput;
 }
-
-const solution = '128653947973284165546179823435891672862735419719426358657948231394512786281367594';
 
 // Button that submits the form.
 let submitBtn = doc.getElementsByClassName('submitBtn')[0];
@@ -123,7 +149,7 @@ submitBtn.addEventListener('click', (e) => {
     
     // Update "result" element on page:
     let result = doc.getElementsByClassName('result')[0];
-    if (currentInput === solution) {
+    if (currentInput === newSolution) {
         for (let i = 0; i < currentInput.length; i++) {
             let cell = doc.getElementById(`cell${i}`);
             if (cell) {
@@ -134,20 +160,23 @@ submitBtn.addEventListener('click', (e) => {
         result.innerHTML = "YAY! You got it!";
     } else {
         for (let i = 0; i < currentInput.length; i++) {
-            if (currentInput[i] === solution[i] || currentInput[i] == '0') {
+            if (currentInput.includes('0')) {
                 let cell = doc.getElementById(`cell${i}`);
                 if (cell) {
                     cell.style.backgroundColor = 'white';
                 }
-                result.innerHTML = "Please fill out all boxes.";
+                result.innerHTML = "Please fill out all boxes."
+                result.style.display = "block"
+                setTimeout( () => result.style.display = "none", 5000)
             // if any item in the string doesn't match, return "not quite..."
-            } else
-                if (currentInput[i] != solution[i]) {
+            } else if (currentInput != newSolution) {
                     let cell = doc.getElementById(`cell${i}`);
                     if (cell) {
                         cell.style.backgroundColor = 'yellow';
                     }
-                result.innerHTML = "hmm not quite";
+                result.innerHTML = "Hm not quite."
+                result.style.display = "block";
+                setTimeout(() => result.style.display = "none", 5000);
             }
         }
     }
