@@ -5,6 +5,10 @@
   align-items: center;
   font-family: 'Roboto Mono', monospace;
 }
+
+.title {
+  font-family: 'Share', cursive;
+}
 .grid, .indexMatrixGrid, .exampleGrid {
   font-size: 30px;
   font-family:Arial, Helvetica, sans-serif;

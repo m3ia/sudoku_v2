@@ -86,7 +86,6 @@ function checkDupes() {
     [rowMaps, colMaps, boxMaps].forEach(dupeMaps => {
         for (let dupeMap of dupeMaps) {
             for (let [key, val] of dupeMap) {
-                console.log({ key, val, dupeMap });
                 if (key == '0' || val.length == '1') {
                     continue;
                 }
@@ -111,7 +110,7 @@ function updateUserInput(index) {
     currentInput = inputArr.join('');
     console.log(currentInput);
     console.log(solution);
-    checkDupes(index);
+    checkDupes();
     return currentInput;
 }
 
@@ -121,9 +120,6 @@ const solution = '12865394797328416554617982343589167286273541971942635865794823
 let submitBtn = doc.getElementsByClassName('submitBtn')[0];
 submitBtn.addEventListener('click', (e) => {
     e.preventDefault();
-    console.log(currentInput);
-    console.log(solution);
-    console.log(currentInput === solution);
     
     // Update "result" element on page:
     let result = doc.getElementsByClassName('result')[0];
@@ -138,21 +134,22 @@ submitBtn.addEventListener('click', (e) => {
         result.innerHTML = "YAY! You got it!";
     } else {
         for (let i = 0; i < currentInput.length; i++) {
-            if (currentInput[i] === solution[i]) {
+            if (currentInput[i] === solution[i] || currentInput[i] == '0') {
                 let cell = doc.getElementById(`cell${i}`);
                 if (cell) {
                     cell.style.backgroundColor = 'white';
                 }
+                result.innerHTML = "Please fill out all boxes.";
             // if any item in the string doesn't match, return "not quite..."
-            } else if (currentInput[i] == 0 || currentInput[i] != solution[i]) {
-                let cell = doc.getElementById(`cell${i}`);
-                if (cell) {
-                    cell.style.backgroundColor = 'yellow';
-                }
-                result.innerHTML = "mmm not quite";
+            } else
+                if (currentInput[i] != solution[i]) {
+                    let cell = doc.getElementById(`cell${i}`);
+                    if (cell) {
+                        cell.style.backgroundColor = 'yellow';
+                    }
+                result.innerHTML = "hmm not quite";
             }
         }
-        result.innerHTML = "mmm not quite";
     }
 })
 
