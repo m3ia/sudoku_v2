@@ -17,3 +17,5 @@ For Techtonica, we had 1 week to build a game of our choice with just HTML, CSS,
 ## Most rewarding:
 - Finishing a basic game in hours
 - Finally getting the dupe-search algorithm right
+
+<img width="608" alt="Screen Shot 2022-08-18 at 10 41 05 PM" src="https://user-images.githubusercontent.com/38749469/185551140-adbfbca3-5624-496a-a0a0-56c4fc62165f.png">
