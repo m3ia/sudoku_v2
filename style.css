@@ -43,6 +43,21 @@ input {
   margin: 0% 20% 0% 20%;
 }
 
+.buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.result {
+  color: rgb(255, 192, 67);
+  text-shadow: 1px 1px #787878;
+  font-size: 30px;
+  height: 30px;
+  border: 2px white solid;
+  text-align: center;
+}
+
 footer {
   text-align: center;
 }

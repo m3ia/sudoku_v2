@@ -1,5 +1,9 @@
 let doc = document;
 
+// New Game Button
+let reload = doc.getElementsByClassName('reloadBtn')[0];
+reload.addEventListener("click", () => window.location.reload());
+
 const solution = '128653947973284165546179823435891672862735419719426358657948231394512786281367594';
 
 let starterGrid = '000000000973080060000109823400090602060030019010000008600908031000510786000000504';
@@ -160,6 +164,7 @@ submitBtn.addEventListener('click', (e) => {
         result.innerHTML = "YAY! You got it!";
     } else {
         for (let i = 0; i < currentInput.length; i++) {
+            
             if (currentInput.includes('0')) {
                 let cell = doc.getElementById(`cell${i}`);
                 if (cell) {
