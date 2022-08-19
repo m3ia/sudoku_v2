@@ -22,7 +22,19 @@ starterGrid.split('').forEach((elem, i) => {
     // Styling: 
     let row = Math.floor(i / 9);
     let col = (i % 9);
-    
+    if (row % 3 === 0) {
+        td.style.borderTop = '5px solid blue';
+    };
+    if (col % 3 === 0) {
+        td.style.borderLeft = '5px solid blue';
+    }
+    if (col % 9 === 8) {
+        td.style.borderRight = '5px solid blue';
+    }
+    if (row === 8) {
+        td.style.borderBottom = '5px solid blue';
+    }
+
 
     // If we hit 0 in the string, add an input box
     if (elem == 0) {
