@@ -19,6 +19,11 @@ starterGrid.split('').forEach((elem, i) => {
     tr.appendChild(td);
     td.classList.add(`cell${i}`, 'cells');
 
+    // Styling: 
+    let row = Math.floor(i / 9);
+    let col = (i % 9);
+    
+
     // If we hit 0 in the string, add an input box
     if (elem == 0) {
         td.innerHTML =
@@ -36,91 +41,51 @@ starterGrid.split('').forEach((elem, i) => {
     }
 });
 
-// TODO: 
-// Create index-to-coord function
-// Create coord-to-index function
-// Then set up validation as the user enters info--if there's a duplicate in the row, column, or parent, highlight both of the duplicates
-
 // Checks for dupes each time an input is updated
-function checkDupes(index) {
-    // index represents the index of the changed cell
-    // reset all cells to background color white if empty:
-    // check rows for duplicates after input
-    // Gets the input's row, column, DOM input and td elements
-
-    // Probably don't need this to check for dupes in the row
-    // let row = Math.floor(index / 9);
-    // let column = index % 9;
-    // let updatedCell = doc.getElementById(`cell${index}`);
-    // let updatedCellBox = doc.getElementsByClassName(`cell${index}`)[0];
-    // // Gets the changed value
-    // let updatedCellVal = currentInput[index];
-
-    // Gets all cells
+function checkDupes() {
     let allCells = doc.getElementsByClassName(`cells`);
-    // Loop through all cells and: check row, column, and parent for dupes
-
     // Map of all the items in the same row, mapped to an array of their indexes
-    let rowMap = new Map();
+    let rowMaps = [...Array(9).keys()].map(i => new Map());
+    let colMaps = [...Array(9).keys()].map(i => new Map());
+    let boxMaps = [...Array(9).keys()].map(i => new Map());
     for (let i = 0; i < allCells.length; i++) {
+        // Reset all cells to background color white if empty:
         let genCell = doc.getElementsByClassName(`cell${i}`)[0];
         genCell.style.backgroundColor = 'white';
-        // Checks row items for dupe:
-        if (Math.floor(i / 9) === Math.floor(index / 9)) {
-            if (rowMap.has(currentInput[i])) {
-                rowMap.set(currentInput[i], [...rowMap.get(currentInput[i]), i]);
+        let row = Math.floor(i / 9);
+        let col = i % 9;
+        let boxGridRow = Math.floor(col / 3);
+        let boxGridCol = Math.floor(row / 3);
+        let box = (boxGridRow * 3) + boxGridCol;
+
+        // Build out row DS
+        let rowMap = rowMaps[row];
+        let colMap = colMaps[col];
+        let boxMap = boxMaps[box];
+        [rowMap, colMap, boxMap].forEach(elem => {
+            if (elem.has(currentInput[i])) {
+                elem.set(currentInput[i], [...elem.get(currentInput[i]), i]);
             } else {
-                rowMap.set(currentInput[i], [i]);
+                elem.set(currentInput[i], [i]);
+            }
+        });
+    }
+    // Check for dupes in every map and update background cell
+    [rowMaps, colMaps, boxMaps].forEach(dupeMaps => {
+        for (let dupeMap of dupeMaps) {
+            for (let [key, val] of dupeMap) {
+                console.log({ key, val, dupeMap });
+                if (key == '0' || val.length == '1') {
+                    continue;
+                }
+                for (let ind of val) {
+                    let dupeCell = doc.getElementsByClassName(`cell${ind}`)[0];
+                    dupeCell.style.backgroundColor = 'yellow';
+                }
             }
         }
-    }
-
-    for (let [key, val] of rowMap) {
-        if (key == '0' || val.length == '1') {
-            continue;
-        }
-        for (let ind of val) {
-            let dupeCellRow = Math.floor(ind / 9);
-            let dupeCellCol = ind % 9;
-            let exactInd = (dupeCellRow * 9) + dupeCellCol;
-            // Locate them on the grid and update their backgroundColor
-            let dupeCell = doc.getElementsByClassName(`cell${ind}`)[0];
-            dupeCell.style.backgroundColor = 'yellow';
-        }
-            
-    }
-        console.log('rowMap', rowMap);
-
-
+    });
 }
-
-    // check duplicates for duplicates after input
-        // First gives t/f if dupe exists
-        // then updates the backgroundcolor for the dupe
-        // updates the backgroundcolor of the item
-    // check parent grids for duplicates after input
-        // First gives t/f if dupe exists
-        // then updates the backgroundcolor for the dupe
-        // updates the backgroundcolor of the item
-    
-    // let parentGrid = [ [], [], [], [], [], [], [], [], []];
-
-    // // Algorithm for creating Parent Gride data structure
-    // //  we want: parentGrid[0] = [0, 1, 2, 0, 1, 2, 0, 1, 2];
-    // for (let i = 0; i < currentInput.length; i++) { 
-    //     // Gets the exact row and column for the item (x is between 0-8, y is between 0-8)
-    //     let column = i % 9; 
-    //     let row = Math.floor(i / 9); 
-    //     // Gets the exact coordinates 
-    //     let parentGridCol = Math.floor(column / 3); 
-    //     let parentGridRow = Math.floor(row / 3); 
-    //     // Push to respective parent array
-    //     let parentArr = (parentGridRow * 3) + (parentGridCol); 
-    //     parentGrid[parentArr].push(currentInput[i]); 
-    // }
-// }
-
-
 
 // Creates a shallow copy of grid and converts it to an array 
 let currentInput = starterGrid.slice();
