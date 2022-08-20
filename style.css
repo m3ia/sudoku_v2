@@ -4,6 +4,8 @@
   flex-direction: column;
   align-items: center;
   font-family: 'Roboto Mono', monospace;
+  overflow: scroll;
+  width: 100%;
 }
 
 .title {
@@ -11,7 +13,7 @@
 }
 
 .grid {
-  font-size: 30px;
+  font-size: 50px;
   font-family:Arial, Helvetica, sans-serif;
   display: flex;
   flex-direction: column;
@@ -24,9 +26,11 @@ table {
 }
 
 td {
+  /* width: 100%; */
   border: 2px solid black;
-  width: 40px;
-  height: 40px;
+  min-width:50px;
+  max-width: 50px;
+  height: 50px;
   padding: 10px;
   text-align: center;
   align-content: space-around;
@@ -60,4 +64,17 @@ input {
 
 footer {
   text-align: center;
+}
+
+@media (max-width: 714px) {
+  .wrapper {
+    width: 100%;
+    overflow-x: scroll;
+    margin: 20px;
+    padding: 20px;
+  }
+
+  td {
+    width: 100%;
+  }
 }
