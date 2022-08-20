@@ -7,6 +7,7 @@ This app has 5 problems, so far--which you can explore by clicking "New Game". I
 
 My bit of personal history with this game: it made me excited about programming again, after a few months of taking a break. The name "Sudoku_v2" is named after a failed first attempt, when I had been out of practice for so long. 
 
+[Try it](https://github.com/m3ia/sudoku_v2)!
 ## Lessons Learned:
 - To convert coordinates to indices, rows can be thought of as quotients and columns as remainders
 - One great way to approach identifying "parent" boxes for an item is by flattening the grid
