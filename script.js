@@ -142,6 +142,7 @@ function updateUserInput(index) {
     currentInput = inputArr.join('');
     console.log(currentInput);
     console.log(newSolution);
+    console.log(currentInput === newSolution);
     checkDupes();
     return currentInput;
 }
@@ -151,8 +152,6 @@ let submitBtn = doc.getElementsByClassName('submitBtn')[0];
 submitBtn.addEventListener('click', (e) => {
     e.preventDefault();
     
-    // Update "result" element on page:
-    let result = doc.getElementsByClassName('result')[0];
     if (currentInput === newSolution) {
         for (let i = 0; i < currentInput.length; i++) {
             let cell = doc.getElementById(`cell${i}`);
@@ -160,30 +159,39 @@ submitBtn.addEventListener('click', (e) => {
                 cell.style.backgroundColor = 'white';
             }
         }
+        // Update "result" element on page:
+        let result = doc.getElementsByClassName('result')[0];
         // if the string matches say "you win!"
         result.innerHTML = "YAY! You got it!";
-    } else {
+        result.style.display = "block";
+    } else if (currentInput != newSolution && /0/.test(currentInput) === true) {
+        let wrongCounter = 0;
         for (let i = 0; i < currentInput.length; i++) {
-            
-            if (currentInput.includes('0')) {
-                let cell = doc.getElementById(`cell${i}`);
+            let cell = doc.getElementById(`cell${i}`);
+            if (currentInput[i] != '0' && currentInput[i] != newSolution[i]) {
+                wrongCounter++;
+                if (cell) {
+                    cell.style.backgroundColor = 'yellow';
+                }
+            } else if ((currentInput[i]) != '0' && currentInput[i] == newSolution[i]) {
                 if (cell) {
                     cell.style.backgroundColor = 'white';
                 }
-                result.innerHTML = "Please fill out all boxes."
-                result.style.display = "block"
-                setTimeout( () => result.style.display = "none", 5000)
-            // if any item in the string doesn't match, return "not quite..."
-            } else if (currentInput != newSolution) {
-                    let cell = doc.getElementById(`cell${i}`);
-                    if (cell) {
-                        cell.style.backgroundColor = 'yellow';
-                    }
-                result.innerHTML = "Hm not quite."
-                result.style.display = "block";
-                setTimeout(() => result.style.display = "none", 5000);
             }
         }
+        if (wrongCounter > 0) {
+            // if any item in the string doesn't match, return "not quite..."
+            let result = doc.getElementsByClassName('result')[0];
+            result.innerHTML = "Hm not quite.";
+            result.style.display = "block";
+        } else {
+            // if there are no wrong items, but the grid is not filled out.
+            let result = doc.getElementsByClassName('result')[0];
+            result.innerHTML = "Please fill out all boxes with valid numbers 1-9.";
+            result.style.display = "block";
+        }
+        let result = doc.getElementsByClassName('result')[0];
+        setTimeout(() => result.style.display = "none", 2000);
     }
-})
+});
 
