@@ -3,6 +3,10 @@
 ## The Game: 
 For Techtonica, we had 1 week to build a game of our choice with just HTML, CSS, and JavaScript, so I chose a game I'm passionate about: a [Sudoku](https://en.wikipedia.org/wiki/Sudoku) puzzle.
 
+This app has 5 problems, so far--which you can explore by clicking "New Game". If you want to test the game out, you can view the solution in the console after inputting at least 1 item.
+
+My bit of personal history with this game: it made me excited about programming again, after a few months of taking a break. The name "Sudoku_v2" is named after a failed first attempt, when I had been out of practice for so long. 
+
 ## Lessons Learned:
 - To convert coordinates to indices, rows can be thought of as quotients and columns as remainders
 - One great way to approach identifying "parent" boxes for an item is by flattening the grid
