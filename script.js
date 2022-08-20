@@ -187,7 +187,7 @@ submitBtn.addEventListener('click', (e) => {
         } else {
             // if there are no wrong items, but the grid is not filled out.
             let result = doc.getElementsByClassName('result')[0];
-            result.innerHTML = "Please fill out all boxes with valid numbers 1-9.";
+            result.innerHTML = "Almost there!";
             result.style.display = "block";
         }
         let result = doc.getElementsByClassName('result')[0];
